@@ -8,7 +8,13 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'npm install' 
+                sh 'docker compose build server' 
+            }
+        }
+        stage('Test') { 
+            steps {
+                sh 'docker compose run server npm test' 
+                sh 'docker-compose run server npm run build'
             }
         }
     }
